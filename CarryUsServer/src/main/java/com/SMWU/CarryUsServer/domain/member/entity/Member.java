@@ -1,6 +1,7 @@
 package com.SMWU.CarryUsServer.domain.member.entity;
 
 import com.SMWU.CarryUsServer.domain.member.entity.enums.PlatformType;
+import com.SMWU.CarryUsServer.domain.member.entity.enums.Role;
 import com.SMWU.CarryUsServer.global.entity.AuditingTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -22,6 +23,9 @@ public class Member extends AuditingTimeEntity {
 
     @Enumerated(EnumType.STRING)
     private PlatformType platformType;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     private String phoneNumber;
 
