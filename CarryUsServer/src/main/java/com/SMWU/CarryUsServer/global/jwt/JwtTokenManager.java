@@ -1,4 +1,4 @@
-package com.SMWU.CarryUsServer.domain.auth.jwt;
+package com.SMWU.CarryUsServer.global.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.*;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.Date;
 
-import static com.SMWU.CarryUsServer.domain.auth.jwt.TokenConstants.*;
+import static com.SMWU.CarryUsServer.global.jwt.TokenConstants.*;
 
 @Component
 @Slf4j

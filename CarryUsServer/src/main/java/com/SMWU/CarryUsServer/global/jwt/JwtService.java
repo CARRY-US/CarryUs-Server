@@ -1,4 +1,4 @@
-package com.SMWU.CarryUsServer.domain.auth.jwt;
+package com.SMWU.CarryUsServer.global.jwt;
 
 import com.SMWU.CarryUsServer.domain.auth.controller.dto.MemberAuthResponseDTO;
 import com.SMWU.CarryUsServer.domain.auth.controller.dto.MemberReissueResponseDTO;
@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 import static com.SMWU.CarryUsServer.domain.auth.exception.AuthExceptionType.*;
-import static com.SMWU.CarryUsServer.domain.auth.jwt.TokenConstants.BEARER;
+import static com.SMWU.CarryUsServer.global.jwt.TokenConstants.BEARER;
 
 @Service
 @RequiredArgsConstructor
