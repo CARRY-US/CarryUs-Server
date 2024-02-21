@@ -1,4 +1,4 @@
-package com.SMWU.CarryUsServer.global.jwt;
+package com.SMWU.CarryUsServer.domain.auth.jwt;
 
 public abstract class TokenConstants {
     public static final String ID_CLAIM = "id";
