@@ -5,7 +5,7 @@ import com.SMWU.CarryUsServer.domain.auth.controller.dto.MemberReissueResponseDT
 import com.SMWU.CarryUsServer.domain.auth.exception.AuthException;
 import com.SMWU.CarryUsServer.domain.auth.service.vo.MemberSignUpVO;
 import com.SMWU.CarryUsServer.domain.member.entity.enums.Role;
-import com.SMWU.CarryUsServer.domain.member.repository.MemberRepoistory;
+import com.SMWU.CarryUsServer.domain.member.repository.MemberRepository;
 import com.SMWU.CarryUsServer.external.redis.RedisTokenRepository;
 import com.SMWU.CarryUsServer.external.redis.RedisTokenVO;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -35,7 +35,7 @@ public class JwtService {
     private String refreshHeader;
 
     private final JwtTokenManager jwtTokenManager;
-    private final MemberRepoistory memberRepoistory;
+    private final MemberRepository memberRepository;
     private final RedisTokenRepository redisTokenRepository;
 
     @Transactional
