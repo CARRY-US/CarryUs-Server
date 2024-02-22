@@ -1,7 +1,7 @@
 package com.SMWU.CarryUsServer.global.jwt;
 
-import com.SMWU.CarryUsServer.domain.auth.controller.dto.MemberAuthResponseDTO;
-import com.SMWU.CarryUsServer.domain.auth.controller.dto.MemberReissueResponseDTO;
+import com.SMWU.CarryUsServer.domain.auth.controller.dto.response.MemberAuthResponseDTO;
+import com.SMWU.CarryUsServer.domain.auth.controller.dto.response.MemberReissueResponseDTO;
 import com.SMWU.CarryUsServer.domain.auth.exception.AuthException;
 import com.SMWU.CarryUsServer.domain.auth.service.vo.MemberSignUpVO;
 import com.SMWU.CarryUsServer.domain.member.entity.enums.Role;

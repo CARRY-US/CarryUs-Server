@@ -1,4 +1,4 @@
-package com.SMWU.CarryUsServer.domain.auth.controller.dto;
+package com.SMWU.CarryUsServer.domain.auth.controller.dto.response;
 
 import com.SMWU.CarryUsServer.domain.auth.controller.dto.enums.AuthType;
 import com.SMWU.CarryUsServer.domain.member.entity.enums.Role;
