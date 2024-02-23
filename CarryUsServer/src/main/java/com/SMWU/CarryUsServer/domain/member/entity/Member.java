@@ -5,6 +5,7 @@ import com.SMWU.CarryUsServer.domain.member.entity.enums.Role;
 import com.SMWU.CarryUsServer.global.entity.AuditingTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -30,4 +31,15 @@ public class Member extends AuditingTimeEntity {
     private String phoneNumber;
 
     private String profileImg;
+
+    @Builder
+    public Member(Long memberId, String platformId, String nickname, PlatformType platformType, Role role, String phoneNumber, String profileImg) {
+        this.memberId = memberId;
+        this.platformId = platformId;
+        this.nickname = nickname;
+        this.platformType = platformType;
+        this.role = role;
+        this.phoneNumber = phoneNumber;
+        this.profileImg = profileImg;
+    }
 }
