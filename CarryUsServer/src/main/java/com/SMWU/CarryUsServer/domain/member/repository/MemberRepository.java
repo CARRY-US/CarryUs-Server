@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Long, Member> {
     Optional<Member> findByPlatformTypeAndPlatformId(PlatformType platformType, String PlatformId);
+    Member saveAndFlush(Member member);
 }
