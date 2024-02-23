@@ -23,16 +23,16 @@ public abstract class AuthService {
                 .orElse(null);
     }
 
-    protected Member saveUser(final MemberRequestDTO request, final String platformId, final String nickname, final String phoneNumber, final String profileImg) {
-        Member newMember = createSocialMember(platformId, nickname, PlatformType.of(request.platformType()), Role.of(request.role()), phoneNumber, profileImg);
+    protected Member saveUser(final MemberRequestDTO request, final String platformId, final String name, final String phoneNumber, final String profileImg) {
+        Member newMember = createSocialMember(platformId, name, PlatformType.of(request.platformType()), Role.of(request.role()), phoneNumber, profileImg);
         return memberRepository.saveAndFlush(newMember);
     }
 
-    private static Member createSocialMember(final String platformId, final String nickname, final PlatformType platformType, final Role role,
+    private static Member createSocialMember(final String platformId, final String name, final PlatformType platformType, final Role role,
                                              final String phoneNumber, final String profileImg) {
         return Member.builder()
                 .platformId(platformId)
-                .nickname(nickname)
+                .name(name)
                 .platformType(platformType)
                 .role(role)
                 .phoneNumber(phoneNumber)
