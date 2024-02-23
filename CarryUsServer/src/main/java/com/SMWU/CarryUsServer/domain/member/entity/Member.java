@@ -10,7 +10,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "MEMBERS")
+@Table(
+        name = "MEMBERS",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "PLATFORM_ID_PLATFORM_TYPE_UNIQUE",
+                        columnNames = {"platform_id", "platform_type"})
+        })
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Member extends AuditingTimeEntity {
