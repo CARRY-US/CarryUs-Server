@@ -20,7 +20,7 @@ public class Member extends AuditingTimeEntity {
     @Column(nullable = false)
     private String platformId;
 
-    private String nickname;
+    private String name;
 
     @Enumerated(EnumType.STRING)
     private PlatformType platformType;
@@ -33,10 +33,10 @@ public class Member extends AuditingTimeEntity {
     private String profileImg;
 
     @Builder
-    public Member(Long memberId, String platformId, String nickname, PlatformType platformType, Role role, String phoneNumber, String profileImg) {
+    public Member(Long memberId, String platformId, String name, PlatformType platformType, Role role, String phoneNumber, String profileImg) {
         this.memberId = memberId;
         this.platformId = platformId;
-        this.nickname = nickname;
+        this.name = name;
         this.platformType = platformType;
         this.role = role;
         this.phoneNumber = phoneNumber;
