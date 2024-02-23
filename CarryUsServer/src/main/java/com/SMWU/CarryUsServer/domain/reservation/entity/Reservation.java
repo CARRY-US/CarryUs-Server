@@ -21,11 +21,11 @@ public class Reservation extends AuditingTimeEntity {
     private Long reservationId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "client_id")
+    @JoinColumn(name = "client_id")
     private Member client;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "store_id")
+    @JoinColumn(name = "store_id")
     private Store store;
 
     private String clientReservationPhoneNumber;
