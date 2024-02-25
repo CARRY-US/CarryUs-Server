@@ -7,6 +7,7 @@ import com.SMWU.CarryUsServer.domain.member.entity.enums.PlatformType;
 import com.SMWU.CarryUsServer.domain.member.entity.enums.Role;
 import com.SMWU.CarryUsServer.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

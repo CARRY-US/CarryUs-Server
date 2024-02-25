@@ -1,6 +1,7 @@
 package com.SMWU.CarryUsServer.domain.auth.service;
 
 import com.SMWU.CarryUsServer.domain.member.entity.enums.PlatformType;
+import com.SMWU.CarryUsServer.external.oauth.kakao.KakaoAuthService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
