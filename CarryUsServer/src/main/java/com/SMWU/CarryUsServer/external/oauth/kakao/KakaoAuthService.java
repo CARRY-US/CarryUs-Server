@@ -2,17 +2,24 @@ package com.SMWU.CarryUsServer.external.oauth.kakao;
 
 import com.SMWU.CarryUsServer.domain.auth.controller.dto.enums.AuthType;
 import com.SMWU.CarryUsServer.domain.auth.controller.dto.request.MemberRequestDTO;
+import com.SMWU.CarryUsServer.domain.auth.exception.AuthException;
 import com.SMWU.CarryUsServer.domain.auth.service.AuthService;
 import com.SMWU.CarryUsServer.domain.auth.service.vo.MemberSignUpVO;
 import com.SMWU.CarryUsServer.domain.member.entity.Member;
 import com.SMWU.CarryUsServer.domain.member.entity.enums.PlatformType;
 import com.SMWU.CarryUsServer.domain.member.entity.enums.Role;
 import com.SMWU.CarryUsServer.domain.member.repository.MemberRepository;
+import com.SMWU.CarryUsServer.global.exception.ClientException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.InvalidPropertyException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.nio.file.AccessDeniedException;
+
+import static com.SMWU.CarryUsServer.domain.auth.exception.AuthExceptionType.INVALID_MEMBER_PLATFORM_AUTHORIZATION_CODE;
 
 @Slf4j
 @Service
@@ -27,8 +34,6 @@ public class KakaoAuthService extends AuthService {
     @Override
     public MemberSignUpVO saveMemberOrLogin(String platformToken, MemberRequestDTO request) {
         KakaoMemberVO userInfoVO = getKakaoUserInfo(platformToken);
-        System.out.println("userInfoVO: " + userInfoVO.toString());
-
         Member foundMember =
                 getMember(PlatformType.of(request.platformType()), userInfoVO.id().toString());
 
@@ -49,9 +54,8 @@ public class KakaoAuthService extends AuthService {
                     .retrieve()
                     .bodyToMono(KakaoMemberVO.class)
                     .block();
-        } catch (Exception e) {
-            log.error("getKakaoUserInfo error = {}", e);
-            throw new InvalidPropertyException(KakaoAuthService.class, "getKakaoUserInfo", "카카오 사용자 정보를 가져오는데 실패했습니다.");
+        } catch (HttpClientErrorException.BadRequest e) {
+            throw new AuthException(INVALID_MEMBER_PLATFORM_AUTHORIZATION_CODE);
         }
     }
 }
