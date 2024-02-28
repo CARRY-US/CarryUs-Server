@@ -7,7 +7,7 @@ import com.SMWU.CarryUsServer.domain.auth.exception.AuthSuccessType;
 import com.SMWU.CarryUsServer.domain.auth.service.AuthServiceProvider;
 import com.SMWU.CarryUsServer.domain.auth.service.vo.MemberSignUpVO;
 import com.SMWU.CarryUsServer.domain.member.entity.enums.PlatformType;
-import com.SMWU.CarryUsServer.global.jwt.JwtService;
+import com.SMWU.CarryUsServer.global.jwt.service.JwtService;
 import com.SMWU.CarryUsServer.global.response.SuccessResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

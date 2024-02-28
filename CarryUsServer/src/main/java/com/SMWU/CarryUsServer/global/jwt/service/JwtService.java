@@ -1,4 +1,4 @@
-package com.SMWU.CarryUsServer.global.jwt;
+package com.SMWU.CarryUsServer.global.jwt.service;
 
 import com.SMWU.CarryUsServer.domain.auth.controller.dto.response.MemberAuthResponseDTO;
 import com.SMWU.CarryUsServer.domain.auth.controller.dto.response.MemberReissueResponseDTO;
@@ -8,6 +8,7 @@ import com.SMWU.CarryUsServer.domain.member.entity.enums.Role;
 import com.SMWU.CarryUsServer.domain.member.repository.MemberRepository;
 import com.SMWU.CarryUsServer.external.redis.RedisTokenRepository;
 import com.SMWU.CarryUsServer.external.redis.RedisTokenVO;
+import com.SMWU.CarryUsServer.global.jwt.JwtTokenManager;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.SignatureException;
