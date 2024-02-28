@@ -22,12 +22,13 @@ public enum AuthExceptionType implements ExceptionType {
      */
     UNAUTHORIZED_MEMBER_LOGIN(HttpStatus.UNAUTHORIZED, "로그인에 실패하였습니다."),
     UNAUTHORIZED_ACCESS_TOKEN(HttpStatus.UNAUTHORIZED, "기한이 만료된 액세스 토큰입니다."),
-    UNAUTHORIZED_REFRESH_TOKEN(HttpStatus.UNAUTHORIZED, "기한이 만료된 리프레시 토큰입니다.");
+    UNAUTHORIZED_REFRESH_TOKEN(HttpStatus.UNAUTHORIZED, "기한이 만료된 리프레시 토큰입니다."),
 
 
     /**
      * 404 Not Found
      */
+    NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "존재하지 않는 사용자입니다.");
 
     private final HttpStatus status;
     private final String message;
