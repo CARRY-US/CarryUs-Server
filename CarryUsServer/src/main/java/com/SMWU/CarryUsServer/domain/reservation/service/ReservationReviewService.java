@@ -2,12 +2,9 @@ package com.SMWU.CarryUsServer.domain.reservation.service;
 
 import com.SMWU.CarryUsServer.domain.member.controller.response.MemberReviewResponseDTO;
 import com.SMWU.CarryUsServer.domain.member.entity.Member;
-import com.SMWU.CarryUsServer.domain.reservation.entity.Reservation;
 import com.SMWU.CarryUsServer.domain.reservation.entity.ReservationReview;
-import com.SMWU.CarryUsServer.domain.reservation.repository.ReservationRepository;
 import com.SMWU.CarryUsServer.domain.reservation.repository.ReservationReviewRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,7 +14,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReservationReviewService {
     private final ReservationReviewRepository reservationReviewRepository;
-    private final ReservationRepository reservationRepository;
 
     public List<MemberReviewResponseDTO> getMemberReviewList(final Member member) {
         final List<ReservationReview> reservationReviews = reservationReviewRepository.findAllByClient(member);
