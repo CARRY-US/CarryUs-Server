@@ -2,6 +2,9 @@ package com.SMWU.CarryUsServer.global.security.config;
 
 import com.SMWU.CarryUsServer.global.security.filter.JwtAuthenticationFilter;
 import com.SMWU.CarryUsServer.global.security.filter.JwtExceptionFilter;
+import com.SMWU.CarryUsServer.global.security.handler.CustomAccessDeniedHandler;
+import com.SMWU.CarryUsServer.global.security.handler.CustomAuthenticationEntryPoint;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,6 +41,8 @@ public class SecurityConfig {
             "/test/**"
     };
 
+    public static final String UTF_8 = "UTF-8";
+
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final JwtExceptionFilter jwtExceptionFilter;
 
@@ -55,13 +60,18 @@ public class SecurityConfig {
                         headerConfig.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)
                 );
 
+
         http.authorizeHttpRequests(auth -> {
                     auth.requestMatchers(AUTH_WHITELIST).permitAll();
                     auth.requestMatchers(AUTH_WHITELIST_WILDCARD).permitAll();
-                    auth.requestMatchers("/main/**","/search/**","/stores/**","/reservation/**","/my/**","/reviews/**").hasRole("TRAVELER");
+                    auth.requestMatchers("/main/**", "/search/**", "/stores/**", "/reservation/**", "/my/**", "/reviews/**").hasAuthority("TRAVELER");
                     auth.anyRequest().authenticated();
                 })
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+              .exceptionHandling(exceptionConfig ->
+                        exceptionConfig.authenticationEntryPoint(authenticationEntryPoint()).accessDeniedHandler(accessDeniedHandler())
+              );
+
+        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtExceptionFilter, JwtAuthenticationFilter.class);
 
         return http.build();
@@ -70,5 +80,15 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+    @Bean
+    public CustomAccessDeniedHandler accessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
+    }
+
+    @Bean
+    public CustomAuthenticationEntryPoint authenticationEntryPoint() {
+        return new CustomAuthenticationEntryPoint();
     }
 }
