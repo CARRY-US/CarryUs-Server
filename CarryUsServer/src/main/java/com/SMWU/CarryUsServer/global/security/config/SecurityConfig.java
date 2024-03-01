@@ -64,7 +64,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> {
                     auth.requestMatchers(AUTH_WHITELIST).permitAll();
                     auth.requestMatchers(AUTH_WHITELIST_WILDCARD).permitAll();
-                    auth.requestMatchers("/main/**", "/search/**", "/stores/**", "/reservation/**", "/my/**", "/reviews/**").hasAuthority("TRAVELER");
+                    auth.requestMatchers("/main/**", "/search/**", "/stores/**", "/reservation/**", "/my/**", "/reviews/**").hasRole("TRAVELER");
                     auth.anyRequest().authenticated();
                 })
               .exceptionHandling(exceptionConfig ->

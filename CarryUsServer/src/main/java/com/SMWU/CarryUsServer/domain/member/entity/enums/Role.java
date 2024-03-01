@@ -1,6 +1,7 @@
 package com.SMWU.CarryUsServer.domain.member.entity.enums;
 
 import com.SMWU.CarryUsServer.domain.auth.exception.AuthException;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;
@@ -8,6 +9,7 @@ import java.util.Arrays;
 import static com.SMWU.CarryUsServer.domain.auth.exception.AuthExceptionType.INVALID_MEMBER_ROLE;
 
 @RequiredArgsConstructor
+@Getter
 public enum Role {
     TRAVELER("ROLE_TRAVELER"), STORE_OWNER("ROLE_STORE_OWNER");
 
