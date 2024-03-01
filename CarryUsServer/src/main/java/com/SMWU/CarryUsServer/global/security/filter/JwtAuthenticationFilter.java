@@ -4,7 +4,6 @@ import com.SMWU.CarryUsServer.domain.auth.exception.AuthException;
 import com.SMWU.CarryUsServer.global.jwt.JwtTokenManager;
 import com.SMWU.CarryUsServer.global.jwt.util.RequestUtils;
 import com.SMWU.CarryUsServer.global.security.service.MemberAuthService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.SignatureException;
@@ -63,14 +62,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         try {
             jwtTokenManager.validateToken(authorizationAccessToken);
-
             String memberId = jwtTokenManager.extractMemberIdFromAccessToken(authorizationAccessToken);
             UserDetails userDetails = memberAuthService.loadUserByUsername(memberId);
 
             Authentication authentication
                     = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
-
         } catch (MalformedJwtException | SignatureException e) {
             throw new AuthException(INVALID_ACCESS_TOKEN);
         } catch (ExpiredJwtException e){
