@@ -2,13 +2,17 @@ package com.SMWU.CarryUsServer.domain.reservation.service;
 
 import com.SMWU.CarryUsServer.domain.member.controller.response.MemberReviewResponseDTO;
 import com.SMWU.CarryUsServer.domain.member.entity.Member;
+import com.SMWU.CarryUsServer.domain.reservation.controller.response.ReviewResponseDTO;
 import com.SMWU.CarryUsServer.domain.reservation.entity.ReservationReview;
+import com.SMWU.CarryUsServer.domain.reservation.exception.ReviewException;
 import com.SMWU.CarryUsServer.domain.reservation.repository.ReservationReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.SMWU.CarryUsServer.domain.reservation.exception.ReviewExceptiontype.NOT_FOUND_REVIEW;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +30,15 @@ public class ReservationReviewService {
                     reservationReview.getReviewContent()));
         }
         return memberReviewListResponseDTO;
+    }
+
+    public ReviewResponseDTO getReviewDetail(final Long reviewId, final Member member) {
+        final ReservationReview reservationReview = reservationReviewRepository.findByReservationReviewIdAndReservationClient(reviewId, member)
+                .orElseThrow(() -> new ReviewException(NOT_FOUND_REVIEW));
+        return ReviewResponseDTO.of(
+                reservationReview.getReservationReviewId(),
+                reservationReview.getReviewRating(),
+                reservationReview.getReviewContent());
     }
 
 }
