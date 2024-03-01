@@ -5,9 +5,12 @@ import com.SMWU.CarryUsServer.domain.member.entity.enums.Role;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Getter
 @RequiredArgsConstructor
@@ -18,7 +21,10 @@ public class CustomAuthUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+
+        List<GrantedAuthority> auth = new ArrayList<>();
+        auth.add(new SimpleGrantedAuthority(this.authority.getValue()));
+        return auth;
     }
 
     @Override
