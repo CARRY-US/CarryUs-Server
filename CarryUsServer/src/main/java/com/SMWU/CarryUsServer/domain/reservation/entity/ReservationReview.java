@@ -21,4 +21,5 @@ public class ReservationReview extends AuditingTimeEntity {
 
     private double reviewRating;
 
+    private String reviewContent;
 }
