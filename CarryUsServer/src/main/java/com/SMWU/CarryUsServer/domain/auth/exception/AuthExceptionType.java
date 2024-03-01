@@ -20,10 +20,15 @@ public enum AuthExceptionType implements ExceptionType {
     /**
      * 401 Unauthorized
      */
+    UNAUTHORIZED_MEMBER(HttpStatus.UNAUTHORIZED, "인증되지 않은 사용자입니다."),
     UNAUTHORIZED_MEMBER_LOGIN(HttpStatus.UNAUTHORIZED, "로그인에 실패하였습니다."),
     UNAUTHORIZED_ACCESS_TOKEN(HttpStatus.UNAUTHORIZED, "기한이 만료된 액세스 토큰입니다."),
     UNAUTHORIZED_REFRESH_TOKEN(HttpStatus.UNAUTHORIZED, "기한이 만료된 리프레시 토큰입니다."),
 
+    /**
+     * 403 Forbidden
+     */
+    FORBIDDEN_MEMBER(HttpStatus.FORBIDDEN, "접근 권한이 없습니다."),
 
     /**
      * 404 Not Found
