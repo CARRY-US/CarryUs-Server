@@ -20,6 +20,7 @@ import java.io.IOException;
 public class JwtExceptionFilter extends OncePerRequestFilter {
 
     private final ObjectMapper objectMapper;
+    public static final String UTF_8 = "UTF-8";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -28,7 +29,7 @@ public class JwtExceptionFilter extends OncePerRequestFilter {
         } catch (AuthException e) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            response.setCharacterEncoding("UTF-8");
+            response.setCharacterEncoding(UTF_8);
             String error = objectMapper.writeValueAsString(ErrorResponse.of(e.getExceptionType()));
             response.getWriter().write(error);
         }
