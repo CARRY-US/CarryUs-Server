@@ -2,6 +2,7 @@ package com.SMWU.CarryUsServer.global.security.filter;
 
 import com.SMWU.CarryUsServer.domain.auth.exception.AuthException;
 import com.SMWU.CarryUsServer.global.response.ErrorResponse;
+import com.SMWU.CarryUsServer.global.security.SecurityErrorUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -14,24 +15,22 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.security.Security;
+
+import static com.SMWU.CarryUsServer.global.security.config.SecurityConfig.UTF_8;
 
 @Component
 @RequiredArgsConstructor
 public class JwtExceptionFilter extends OncePerRequestFilter {
 
     private final ObjectMapper objectMapper;
-    public static final String UTF_8 = "UTF-8";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             filterChain.doFilter(request, response);
         } catch (AuthException e) {
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            response.setCharacterEncoding(UTF_8);
-            String error = objectMapper.writeValueAsString(ErrorResponse.of(e.getExceptionType()));
-            response.getWriter().write(error);
+            SecurityErrorUtils.getErrorResponse(response, HttpStatus.UNAUTHORIZED, ErrorResponse.of(e.getExceptionType()));
         }
     }
 }
