@@ -14,4 +14,7 @@ public interface ReservationReviewRepository extends JpaRepository<ReservationRe
     List<ReservationReview> findAllByClient(@Param("client") Member client);
 
     Optional<ReservationReview> findByReservationReviewIdAndReservationClient(Long reservationId, Member client);
+
+    @Query("SELECT rr FROM ReservationReview rr JOIN FETCH rr.reservation r JOIN FETCH r.store WHERE rr.reservationReviewId = :reviewId AND rr.reservation.client = :client")
+    Optional<ReservationReview> findReservationReviewWithReservationStore(@Param("reviewId") Long reviewId, @Param("client") Member client);
 }
