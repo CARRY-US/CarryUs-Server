@@ -35,4 +35,8 @@ public class Store {
     private double latitude;
 
     private double longitude;
+
+    public String getStoreLocation(){
+        return state + " " + city + " " + town + " " + addressRest;
+    }
 }
