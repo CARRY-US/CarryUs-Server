@@ -45,7 +45,7 @@ public class ReservationReview extends AuditingTimeEntity {
         }
     }
 
-    private static void validateReviewRating(final double reviewRating) {
+    private void validateReviewRating(final double reviewRating) {
         if(reviewRating < 0 || reviewRating > 5) {
             throw new ReviewException(ILLEGAL_REVIEW_RATING);
         }
