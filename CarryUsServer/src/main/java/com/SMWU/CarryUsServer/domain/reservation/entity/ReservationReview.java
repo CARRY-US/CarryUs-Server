@@ -4,6 +4,7 @@ import com.SMWU.CarryUsServer.domain.reservation.exception.ReviewException;
 import com.SMWU.CarryUsServer.global.entity.AuditingTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,6 +27,14 @@ public class ReservationReview extends AuditingTimeEntity {
 
     private String reviewContent;
 
+    @Builder
+    public ReservationReview (final Reservation reservation, final double reviewRating, final String reviewContent) {
+        validateReviewRating(reviewRating);
+        this.reservation = reservation;
+        this.reviewRating = reviewRating;
+        this.reviewContent = reviewContent;
+    }
+
     public void updateReview(final Double reviewRating, final String reviewContent) {
         if(reviewContent != null && !reviewContent.isBlank()){
             this.reviewContent = reviewContent;
@@ -36,7 +45,7 @@ public class ReservationReview extends AuditingTimeEntity {
         }
     }
 
-    private void validateReviewRating(final double reviewRating) {
+    private static void validateReviewRating(final double reviewRating) {
         if(reviewRating < 0 || reviewRating > 5) {
             throw new ReviewException(ILLEGAL_REVIEW_RATING);
         }
