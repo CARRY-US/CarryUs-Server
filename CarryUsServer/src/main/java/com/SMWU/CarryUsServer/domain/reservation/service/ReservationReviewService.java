@@ -2,7 +2,9 @@ package com.SMWU.CarryUsServer.domain.reservation.service;
 
 import com.SMWU.CarryUsServer.domain.member.controller.response.MemberReviewResponseDTO;
 import com.SMWU.CarryUsServer.domain.member.entity.Member;
+import com.SMWU.CarryUsServer.domain.reservation.controller.response.ReservationStoreInfoResponseDTO;
 import com.SMWU.CarryUsServer.domain.reservation.controller.response.ReviewResponseDTO;
+import com.SMWU.CarryUsServer.domain.reservation.entity.Reservation;
 import com.SMWU.CarryUsServer.domain.reservation.entity.ReservationReview;
 import com.SMWU.CarryUsServer.domain.reservation.exception.ReviewException;
 import com.SMWU.CarryUsServer.domain.reservation.repository.ReservationReviewRepository;
@@ -41,4 +43,10 @@ public class ReservationReviewService {
                 reservationReview.getReviewContent());
     }
 
+    public ReservationStoreInfoResponseDTO getReservationStoreInfo(final Long reviewId, final Member member){
+        final ReservationReview reservationReview = reservationReviewRepository.findReservationReviewWithReservationStore(reviewId, member)
+                .orElseThrow(() -> new ReviewException(NOT_FOUND_REVIEW));
+        final Reservation reservation = reservationReview.getReservation();
+        return ReservationStoreInfoResponseDTO.of(reservation.getStore().getStoreId(), reservation.getStore().getStoreName(), reservation.getStore().getStoreLocation(), reservation.getReservationInfo());
+    }
 }
