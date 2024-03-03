@@ -10,7 +10,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 public class SuccessResponse<T> {
-    private final int code;
+    private final int status;
+    private final boolean success = true;
     private final String message;
     private T data;
 
