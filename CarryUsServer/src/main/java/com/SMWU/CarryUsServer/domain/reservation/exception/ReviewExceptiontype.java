@@ -6,7 +6,8 @@ import org.springframework.http.HttpStatus;
 
 @RequiredArgsConstructor
 public enum ReviewExceptiontype implements ExceptionType {
-    NOT_FOUND_REVIEW(HttpStatus.NOT_FOUND, "잘못된 요청입니다.");
+    NOT_FOUND_REVIEW(HttpStatus.NOT_FOUND, "리뷰를 찾을 수 없습니다."),
+    ILLEGAL_REVIEW_RATING(HttpStatus.BAD_REQUEST, "리뷰 평점은 0점부터 5점까지만 가능합니다.");
 
     private final HttpStatus status;
     private final String message;
