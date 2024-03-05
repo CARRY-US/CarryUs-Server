@@ -30,4 +30,11 @@ public class MainController {
         return ResponseEntity.ok(SuccessResponse.of(GET_STORE_LIST_BY_MEMBER_LOCATION, responseDTO));
     }
 
+    @GetMapping("/stores")
+    public ResponseEntity<SuccessResponse<List<StoreResponseDTO>>> getStoreListByLocation(
+            @RequestParam final double x,
+            @RequestParam final double y){
+        final List<StoreResponseDTO> responseDTO = storeService.getStoreListByLocation(x, y);
+        return ResponseEntity.ok(SuccessResponse.of(GET_STORE_LIST_BY_MEMBER_LOCATION, responseDTO));
+    }
 }
