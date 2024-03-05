@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.SMWU.CarryUsServer.domain.store.controller.response.StoreResponseDTO.toStoreResponseDTO;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -20,17 +22,22 @@ public class StoreService {
     public static final double EMPTY_RATING = 0.0;
 
     public List<StoreResponseDTO> getStoreListByMemberLocation(final double xMin, final double xMax, final double yMin, final double yMax) {
-        final List<Store> storeList = storeRepository.findByLatitudeBetweenAndLongitudeBetweenOrderByStoreId(xMin, xMax, yMin, yMax);
+        final List<Store> storeList = storeRepository.findAllByLatitudeBetweenAndLongitudeBetweenOrderByStoreId(xMin, xMax, yMin, yMax);
+        return getStoreResponseDTOList(storeList);
+    }
+
+    public List<StoreResponseDTO> getStoreListByLocation(final double x, final double y){
+        final List<Store> storeList = storeRepository.findAllByLatitudeAndLongitude(x, y);
+        return getStoreResponseDTOList(storeList);
+    }
+
+    private List<StoreResponseDTO> getStoreResponseDTOList(List<Store> storeList){
         List<StoreResponseDTO> responseDTOList = new ArrayList<>();
         for(Store store : storeList) {
             final int reviewCount = reviewRepository.getReviewCount(store.getStoreId());
-        final double reviewRating = reviewRepository.getStoreRating(store.getStoreId()).orElse(EMPTY_RATING);
-            responseDTOList.add(toResponseDTO(store, reviewCount, reviewRating));
+            final double reviewRating = reviewRepository.getStoreRating(store.getStoreId()).orElse(EMPTY_RATING);
+            responseDTOList.add(toStoreResponseDTO(store, reviewCount, reviewRating));
         }
         return responseDTOList;
-    }
-
-    private StoreResponseDTO toResponseDTO(final Store store,final int reviewCount, final double reviewRatingAverage) {
-        return StoreResponseDTO.of(store.getStoreId(), store.getStoreImgUrl(), store.getStoreName(), store.getStoreLocation(), reviewCount ,reviewRatingAverage , store.getLatitude(), store.getLongitude());
     }
 }
