@@ -31,6 +31,11 @@ public class StoreService {
         return getStoreResponseDTOList(storeList);
     }
 
+    public List<StoreResponseDTO> getStoreListByCity(final String city){
+        final List<Store> storeList = storeRepository.findAllByCity(city);
+        return getStoreResponseDTOList(storeList);
+    }
+
     private List<StoreResponseDTO> getStoreResponseDTOList(List<Store> storeList){
         List<StoreResponseDTO> responseDTOList = new ArrayList<>();
         for(Store store : storeList) {
