@@ -38,7 +38,11 @@ public class ReservationReview extends AuditingTimeEntity {
     public void updateReview(final Double reviewRating, final String reviewContent) {
         boolean isReviewExist = reviewContent != null && !reviewContent.isBlank();
         boolean isReviewRatingExist = reviewRating != null;
-        this.reviewContent = isReviewExist ? reviewContent : this.reviewContent;
+
+        if(isReviewExist){
+            this.reviewContent = reviewContent;
+        }
+
         if(isReviewRatingExist){
             validateReviewRating(reviewRating);
             this.reviewRating = reviewRating;
