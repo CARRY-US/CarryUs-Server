@@ -36,17 +36,18 @@ public class ReservationReview extends AuditingTimeEntity {
     }
 
     public void updateReview(final Double reviewRating, final String reviewContent) {
-        if(reviewContent != null && !reviewContent.isBlank()){
-            this.reviewContent = reviewContent;
-        }
-        if(reviewRating!=null){
+        boolean isReviewExist = reviewContent != null && !reviewContent.isBlank();
+        boolean isReviewRatingExist = reviewRating != null;
+        this.reviewContent = isReviewExist ? reviewContent : this.reviewContent;
+        if(isReviewRatingExist){
             validateReviewRating(reviewRating);
             this.reviewRating = reviewRating;
         }
     }
 
     private void validateReviewRating(final double reviewRating) {
-        if(reviewRating < 0 || reviewRating > 5) {
+        boolean isReviewRatingNotValid = reviewRating < 0 || reviewRating > 5;
+        if(isReviewRatingNotValid){
             throw new ReviewException(ILLEGAL_REVIEW_RATING);
         }
     }
