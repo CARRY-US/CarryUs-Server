@@ -6,5 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface StoreRepository extends JpaRepository<Store, Long>{
-    List<Store> findByLatitudeBetweenAndLongitudeBetweenOrderByStoreId(double xMin, double xMax, double yMin, double yMax);
+    List<Store> findAllByLatitudeBetweenAndLongitudeBetweenOrderByStoreId(final double xMin, final double xMax, final double yMin, final double yMax);
+
+    List<Store> findAllByLatitudeAndLongitude(final double x, final double y);
 }
