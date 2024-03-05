@@ -55,9 +55,8 @@ public class ReservationReviewService {
     }
 
     public ReservationStoreInfoResponseDTO getReservationStoreInfo(final Long reviewId, final Member member){
-        final ReservationReview reservationReview = reservationReviewRepository.findReservationReviewWithReservationStore(reviewId, member)
-                .orElseThrow(() -> new ReviewException(NOT_FOUND_REVIEW));
-        final Reservation reservation = reservationReview.getReservation();
+        final Reservation reservation = reservationRepository.findReservationWithReservationStore(reviewId, member)
+                .orElseThrow(() -> new ReservationException(NOT_FOUND_RESERVATION));
         return ReservationStoreInfoResponseDTO.of(reservation.getStore().getStoreId(), reservation.getStore().getStoreName(), reservation.getStore().getStoreLocation(), reservation.getReservationInfo());
     }
 

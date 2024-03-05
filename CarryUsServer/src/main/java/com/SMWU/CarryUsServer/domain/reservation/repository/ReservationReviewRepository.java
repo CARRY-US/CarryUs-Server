@@ -15,9 +15,6 @@ public interface ReservationReviewRepository extends JpaRepository<ReservationRe
 
     Optional<ReservationReview> findByReservationReviewIdAndReservationClient(Long reservationId, Member client);
 
-    @Query("SELECT rr FROM ReservationReview rr JOIN FETCH rr.reservation r JOIN FETCH r.store WHERE rr.reservationReviewId = :reviewId AND rr.reservation.client = :client")
-    Optional<ReservationReview> findReservationReviewWithReservationStore(@Param("reviewId") Long reviewId, @Param("client") Member client);
-
     @Query("SELECT AVG(rr.reviewRating) FROM ReservationReview rr JOIN rr.reservation r WHERE r.store.storeId = :storeId")
     Optional<Double> getStoreRating(@Param("storeId") Long storeId);
 
