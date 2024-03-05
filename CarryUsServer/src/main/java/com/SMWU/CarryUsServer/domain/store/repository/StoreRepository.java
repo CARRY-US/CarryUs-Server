@@ -9,4 +9,6 @@ public interface StoreRepository extends JpaRepository<Store, Long>{
     List<Store> findAllByLatitudeBetweenAndLongitudeBetweenOrderByStoreId(final double xMin, final double xMax, final double yMin, final double yMax);
 
     List<Store> findAllByLatitudeAndLongitude(final double x, final double y);
+
+    List<Store> findAllByCity(final String city);
 }
