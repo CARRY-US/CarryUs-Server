@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.SMWU.CarryUsServer.domain.store.exception.StoreSuccessType.GET_STORE_LIST_BY_LOCATION;
 import static com.SMWU.CarryUsServer.domain.store.exception.StoreSuccessType.GET_STORE_LIST_BY_MEMBER_LOCATION;
 
 @RestController
@@ -35,6 +36,6 @@ public class MainController {
             @RequestParam final double x,
             @RequestParam final double y){
         final List<StoreResponseDTO> responseDTO = storeService.getStoreListByLocation(x, y);
-        return ResponseEntity.ok(SuccessResponse.of(GET_STORE_LIST_BY_MEMBER_LOCATION, responseDTO));
+        return ResponseEntity.ok(SuccessResponse.of(GET_STORE_LIST_BY_LOCATION, responseDTO));
     }
 }
