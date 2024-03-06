@@ -21,7 +21,7 @@ import java.util.List;
 
 import static com.SMWU.CarryUsServer.domain.member.controller.response.MemberReviewResponseDTO.getMemberReviewResponseDTO;
 import static com.SMWU.CarryUsServer.domain.reservation.controller.response.ReviewResponseDTO.getReviewResponseDTO;
-import static com.SMWU.CarryUsServer.domain.reservation.controller.response.StoreReviewResponseDTO.toStoreReviewResponseDTO;
+import static com.SMWU.CarryUsServer.domain.reservation.controller.response.StoreReviewResponseDTO.getStoreReviewResponseDTO;
 import static com.SMWU.CarryUsServer.domain.reservation.exception.ReservationExceptionType.NOT_COMPLETED_RESERVATION;
 import static com.SMWU.CarryUsServer.domain.reservation.exception.ReservationExceptionType.NOT_FOUND_RESERVATION;
 import static com.SMWU.CarryUsServer.domain.reservation.exception.ReviewExceptiontype.NOT_FOUND_REVIEW;
@@ -56,7 +56,7 @@ public class ReservationReviewService {
     private List<StoreReviewResponseDTO> toStoreReviewList(final List<ReservationReview> reservationReviewList) {
         List<StoreReviewResponseDTO> storeReviewListResponseDTO = new ArrayList<>();
         for (ReservationReview reservationReview : reservationReviewList) {
-            storeReviewListResponseDTO.add(toStoreReviewResponseDTO(reservationReview));
+            storeReviewListResponseDTO.add(getStoreReviewResponseDTO(reservationReview));
         }
         return storeReviewListResponseDTO;
     }

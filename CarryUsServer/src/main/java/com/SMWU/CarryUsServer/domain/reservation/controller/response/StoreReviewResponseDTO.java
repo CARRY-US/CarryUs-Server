@@ -16,7 +16,7 @@ public record StoreReviewResponseDTO(
         return new StoreReviewResponseDTO(reviewId, memberName, reviewCreatedAt, reviewRating, reviewText);
     }
 
-    public static StoreReviewResponseDTO toStoreReviewResponseDTO(final ReservationReview reservationReview){
+    public static StoreReviewResponseDTO getStoreReviewResponseDTO(final ReservationReview reservationReview){
         return StoreReviewResponseDTO.of(reservationReview.getReservationReviewId(), reservationReview.getReservation().getClient().getName(), getReviewCreatedAt(reservationReview.getCreatedAt()), reservationReview.getReviewRating(), reservationReview.getReviewContent());
     }
 
