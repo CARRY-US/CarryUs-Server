@@ -4,9 +4,7 @@ import com.SMWU.CarryUsServer.domain.member.controller.response.MemberReviewResp
 import com.SMWU.CarryUsServer.domain.member.entity.Member;
 import com.SMWU.CarryUsServer.domain.reservation.controller.request.ReviewCreateRequestDTO;
 import com.SMWU.CarryUsServer.domain.reservation.controller.request.ReviewUpdateRequestDTO;
-import com.SMWU.CarryUsServer.domain.reservation.controller.response.ReservationStoreInfoResponseDTO;
-import com.SMWU.CarryUsServer.domain.reservation.controller.response.ReviewIdResponseDTO;
-import com.SMWU.CarryUsServer.domain.reservation.controller.response.ReviewResponseDTO;
+import com.SMWU.CarryUsServer.domain.reservation.controller.response.*;
 import com.SMWU.CarryUsServer.domain.reservation.entity.Reservation;
 import com.SMWU.CarryUsServer.domain.reservation.entity.ReservationReview;
 import com.SMWU.CarryUsServer.domain.reservation.entity.enums.ReservationType;
@@ -21,6 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.SMWU.CarryUsServer.domain.member.controller.response.MemberReviewResponseDTO.toMemberReviewResponseDTO;
+import static com.SMWU.CarryUsServer.domain.reservation.controller.response.ReviewResponseDTO.toReviewResponseDTO;
+import static com.SMWU.CarryUsServer.domain.reservation.controller.response.StoreReviewResponseDTO.toStoreReviewResponseDTO;
 import static com.SMWU.CarryUsServer.domain.reservation.exception.ReservationExceptionType.NOT_COMPLETED_RESERVATION;
 import static com.SMWU.CarryUsServer.domain.reservation.exception.ReservationExceptionType.NOT_FOUND_RESERVATION;
 import static com.SMWU.CarryUsServer.domain.reservation.exception.ReviewExceptiontype.NOT_FOUND_REVIEW;
@@ -33,25 +34,37 @@ public class ReservationReviewService {
     private final ReservationRepository reservationRepository;
 
     public List<MemberReviewResponseDTO> getMemberReviewList(final Member member) {
-        final List<ReservationReview> reservationReviews = reservationReviewRepository.findAllByClient(member);
+        final List<ReservationReview> reservationReviewList = reservationReviewRepository.findAllByClient(member);
+        return getMemberReviewResponseDTOList(reservationReviewList);
+    }
+
+    private List<MemberReviewResponseDTO> getMemberReviewResponseDTOList(final List<ReservationReview> reservationReviewList){
         List<MemberReviewResponseDTO> memberReviewListResponseDTO = new ArrayList<>();
-        for (ReservationReview reservationReview : reservationReviews) {
-            memberReviewListResponseDTO.add(MemberReviewResponseDTO.of(
-                    reservationReview.getReservationReviewId(),
-                    reservationReview.getReservation().getStore().getStoreName(),
-                    reservationReview.getReviewRating(),
-                    reservationReview.getReviewContent()));
+        for (ReservationReview reservationReview : reservationReviewList) {
+            memberReviewListResponseDTO.add(toMemberReviewResponseDTO(reservationReview, reservationReview.getReservation().getStore().getStoreName()));
         }
         return memberReviewListResponseDTO;
+    }
+
+    public StoreReviewResponseListDTO getStoreReviewList(final Long storeId) {
+        final List<ReservationReview> reservationReviewList = reservationReviewRepository.getReservationReviewByStore(storeId);
+        final List<StoreReviewResponseDTO> reviewList = toStoreReviewList(reservationReviewList);
+        final double reviewRatingAverage = reservationReviewRepository.getStoreRating(storeId).orElse(0.0);
+        return StoreReviewResponseListDTO.of(reviewRatingAverage, reviewList);
+    }
+
+    private List<StoreReviewResponseDTO> toStoreReviewList(final List<ReservationReview> reservationReviewList) {
+        List<StoreReviewResponseDTO> storeReviewListResponseDTO = new ArrayList<>();
+        for (ReservationReview reservationReview : reservationReviewList) {
+            storeReviewListResponseDTO.add(toStoreReviewResponseDTO(reservationReview));
+        }
+        return storeReviewListResponseDTO;
     }
 
     public ReviewResponseDTO getReviewDetail(final Long reviewId, final Member member) {
         final ReservationReview reservationReview = reservationReviewRepository.findByReservationReviewIdAndReservationClient(reviewId, member)
                 .orElseThrow(() -> new ReviewException(NOT_FOUND_REVIEW));
-        return ReviewResponseDTO.of(
-                reservationReview.getReservationReviewId(),
-                reservationReview.getReviewRating(),
-                reservationReview.getReviewContent());
+        return toReviewResponseDTO(reservationReview);
     }
 
     public ReservationStoreInfoResponseDTO getReservationStoreInfo(final Long reviewId, final Member member){
