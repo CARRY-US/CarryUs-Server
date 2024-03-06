@@ -2,6 +2,8 @@ package com.SMWU.CarryUsServer.domain.store.controller;
 
 import com.SMWU.CarryUsServer.domain.reservation.controller.response.StoreReviewResponseListDTO;
 import com.SMWU.CarryUsServer.domain.reservation.service.ReservationReviewService;
+import com.SMWU.CarryUsServer.domain.store.controller.response.StoreDetailResponseDTO;
+import com.SMWU.CarryUsServer.domain.store.service.StoreService;
 import com.SMWU.CarryUsServer.global.response.SuccessResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +19,17 @@ import static com.SMWU.CarryUsServer.domain.store.exception.StoreSuccessType.GET
 @RequiredArgsConstructor
 public class StoreController {
     private final ReservationReviewService reservationReviewService;
+    private final StoreService storeService;
 
     @GetMapping("/{storeId}/reviews")
     public ResponseEntity<SuccessResponse<StoreReviewResponseListDTO>> getStoreReviewList(@PathVariable final long storeId) {
-        return ResponseEntity.ok().body(SuccessResponse.of(GET_STORE_REVIEW_LIST, reservationReviewService.getStoreReviewList(storeId)));
+        StoreReviewResponseListDTO responseDTO = reservationReviewService.getStoreReviewList(storeId);
+        return ResponseEntity.ok().body(SuccessResponse.of(GET_STORE_REVIEW_LIST, responseDTO));
+    }
+
+    @GetMapping("/{storeId}/detail")
+    public ResponseEntity<SuccessResponse<StoreDetailResponseDTO>> getStoreDetail(@PathVariable final long storeId) {
+        StoreDetailResponseDTO responseDTO = storeService.getStoreDetail(storeId);
+        return ResponseEntity.ok().body(SuccessResponse.of(GET_STORE_REVIEW_LIST, responseDTO));
     }
 }
