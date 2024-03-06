@@ -10,7 +10,7 @@ public record ReviewResponseDTO(
         return new ReviewResponseDTO(reviewId, reviewRating, reviewContent);
     }
 
-    public static ReviewResponseDTO toReviewResponseDTO(final ReservationReview reservationReview){
+    public static ReviewResponseDTO getReviewResponseDTO(final ReservationReview reservationReview){
         return ReviewResponseDTO.of(reservationReview.getReservationReviewId(), reservationReview.getReviewRating(), reservationReview.getReviewContent());
     }
 }
