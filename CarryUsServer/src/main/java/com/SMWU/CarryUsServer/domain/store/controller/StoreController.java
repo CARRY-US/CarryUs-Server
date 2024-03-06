@@ -2,7 +2,6 @@ package com.SMWU.CarryUsServer.domain.store.controller;
 
 import com.SMWU.CarryUsServer.domain.reservation.controller.response.StoreReviewResponseListDTO;
 import com.SMWU.CarryUsServer.domain.reservation.service.ReservationReviewService;
-import com.SMWU.CarryUsServer.domain.store.service.StoreService;
 import com.SMWU.CarryUsServer.global.response.SuccessResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
