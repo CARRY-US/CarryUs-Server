@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.SMWU.CarryUsServer.domain.store.exception.StoreSuccessType.GET_STORE_DETAIL;
 import static com.SMWU.CarryUsServer.domain.store.exception.StoreSuccessType.GET_STORE_REVIEW_LIST;
 
 @RestController
@@ -30,6 +31,6 @@ public class StoreController {
     @GetMapping("/{storeId}/detail")
     public ResponseEntity<SuccessResponse<StoreDetailResponseDTO>> getStoreDetail(@PathVariable final long storeId) {
         StoreDetailResponseDTO responseDTO = storeService.getStoreDetail(storeId);
-        return ResponseEntity.ok().body(SuccessResponse.of(GET_STORE_REVIEW_LIST, responseDTO));
+        return ResponseEntity.ok().body(SuccessResponse.of(GET_STORE_DETAIL, responseDTO));
     }
 }
