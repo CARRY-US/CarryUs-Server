@@ -11,7 +11,7 @@ public record MemberReviewResponseDTO(
         return new MemberReviewResponseDTO(reviewId, storeName, reviewRating, reviewContent);
     }
 
-    public static MemberReviewResponseDTO toMemberReviewResponseDTO(final ReservationReview reservationReview, final String storeName) {
+    public static MemberReviewResponseDTO getMemberReviewResponseDTO(final ReservationReview reservationReview, final String storeName) {
         return MemberReviewResponseDTO.of(reservationReview.getReservationReviewId(), storeName, reservationReview.getReviewRating(), reservationReview.getReviewContent());
     }
 }
