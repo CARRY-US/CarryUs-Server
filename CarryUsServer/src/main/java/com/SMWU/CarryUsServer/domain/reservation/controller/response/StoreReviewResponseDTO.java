@@ -17,7 +17,9 @@ public record StoreReviewResponseDTO(
     }
 
     public static StoreReviewResponseDTO getStoreReviewResponseDTO(final ReservationReview reservationReview){
-        return StoreReviewResponseDTO.of(reservationReview.getReservationReviewId(), reservationReview.getReservation().getClient().getName(), getReviewCreatedAt(reservationReview.getCreatedAt()), reservationReview.getReviewRating(), reservationReview.getReviewContent());
+        String memberName = reservationReview.getReservation().getClient().getName();
+        String reviewCreatedAt = getReviewCreatedAt(reservationReview.getCreatedAt());
+        return StoreReviewResponseDTO.of(reservationReview.getReservationReviewId(), memberName, reviewCreatedAt, reservationReview.getReviewRating(), reservationReview.getReviewContent());
     }
 
     private static String getReviewCreatedAt(final LocalDateTime createdAt) {
