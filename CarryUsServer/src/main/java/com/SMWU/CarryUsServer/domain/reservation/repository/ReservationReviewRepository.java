@@ -20,4 +20,7 @@ public interface ReservationReviewRepository extends JpaRepository<ReservationRe
 
     @Query("SELECT COUNT(rr) FROM ReservationReview rr JOIN rr.reservation r WHERE r.store.storeId = :storeId")
     int getReviewCount(@Param("storeId") Long storeId);
+
+    @Query("SELECT rr FROM ReservationReview rr JOIN FETCH rr.reservation r WHERE r.store.storeId =:storeId")
+    List<ReservationReview> getReservationReviewByStore(@Param("storeId") Long storeId);
 }
