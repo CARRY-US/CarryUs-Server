@@ -7,11 +7,7 @@ public record MemberReviewResponseDTO(
         String storeName,
         double reviewRating,
         String reviewContent) {
-    public static MemberReviewResponseDTO of(long reviewId, String storeName, double reviewRating, String reviewContent) {
-        return new MemberReviewResponseDTO(reviewId, storeName, reviewRating, reviewContent);
-    }
-
-    public static MemberReviewResponseDTO getMemberReviewResponseDTO(final ReservationReview reservationReview, final String storeName) {
-        return MemberReviewResponseDTO.of(reservationReview.getReservationReviewId(), storeName, reservationReview.getReviewRating(), reservationReview.getReviewContent());
+    public static MemberReviewResponseDTO of(final ReservationReview reservationReview, final String storeName) {
+        return new MemberReviewResponseDTO(reservationReview.getReservationReviewId(), storeName, reservationReview.getReviewRating(), reservationReview.getReviewContent());
     }
 }
