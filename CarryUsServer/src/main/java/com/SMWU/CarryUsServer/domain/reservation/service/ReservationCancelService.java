@@ -9,15 +9,18 @@ import com.SMWU.CarryUsServer.domain.reservation.repository.ReservationCancelRea
 import com.SMWU.CarryUsServer.domain.reservation.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.SMWU.CarryUsServer.domain.reservation.exception.ReservationExceptionType.NOT_FOUND_RESERVATION;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ReservationCancelService {
     private final ReservationCancelReasonRepository reservationCancelReasonRepository;
     private final ReservationRepository reservationRepository;
 
+    @Transactional
     public ReservationIdResponseDTO cancelReservation(final ReservationCancelRequestDTO request) {
         final Reservation reservation = reservationRepository.findById(request.reservationId()).orElseThrow(() -> new ReservationException(NOT_FOUND_RESERVATION));
         reservation.cancelReservation();
