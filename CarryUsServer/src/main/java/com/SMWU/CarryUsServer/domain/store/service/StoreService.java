@@ -15,8 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.SMWU.CarryUsServer.domain.store.controller.response.StoreResponseDTO.toStoreResponseDTO;
-
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -46,7 +44,7 @@ public class StoreService {
         for(Store store : storeList) {
             final int reviewCount = reviewRepository.getReviewCount(store.getStoreId());
             final double reviewRating = reviewRepository.getStoreRating(store.getStoreId()).orElse(EMPTY_RATING);
-            responseDTOList.add(toStoreResponseDTO(store, reviewCount, reviewRating));
+            responseDTOList.add(StoreResponseDTO.of(store, reviewCount, reviewRating));
         }
         return responseDTOList;
     }
