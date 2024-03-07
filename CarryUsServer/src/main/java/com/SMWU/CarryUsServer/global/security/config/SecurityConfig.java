@@ -24,7 +24,7 @@ public class SecurityConfig {
 
     public static final String[] AUTH_WHITELIST = {
             "/", "/error",
-            "/favicon.ico",
+            "/favicon.ico.",
             "/actuator/health", "/check/profile"
     };
 
