@@ -6,11 +6,7 @@ public record ReviewResponseDTO(
         long reviewId,
         double reviewRating,
         String reviewContent) {
-    public static ReviewResponseDTO of(long reviewId, double reviewRating, String reviewContent) {
-        return new ReviewResponseDTO(reviewId, reviewRating, reviewContent);
-    }
-
-    public static ReviewResponseDTO getReviewResponseDTO(final ReservationReview reservationReview){
-        return ReviewResponseDTO.of(reservationReview.getReservationReviewId(), reservationReview.getReviewRating(), reservationReview.getReviewContent());
+    public static ReviewResponseDTO of(final ReservationReview reservationReview){
+        return new ReviewResponseDTO(reservationReview.getReservationReviewId(), reservationReview.getReviewRating(), reservationReview.getReviewContent());
     }
 }
