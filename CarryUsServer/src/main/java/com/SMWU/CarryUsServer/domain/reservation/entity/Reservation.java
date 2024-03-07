@@ -46,4 +46,8 @@ public class Reservation extends AuditingTimeEntity {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm 예약");
         return reservationStartTime.format(formatter);
     }
+
+    public void cancelReservation(){
+        this.reservationType = ReservationType.CANCELED;
+    }
 }
