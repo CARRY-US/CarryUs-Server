@@ -2,6 +2,7 @@ package com.SMWU.CarryUsServer.domain.reservation.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,4 +20,10 @@ public class ReservationCancelReason {
     private Reservation reservation;
 
     private String cancelReason;
+
+    @Builder
+    public ReservationCancelReason(Reservation reservation, String cancelReason) {
+        this.reservation = reservation;
+        this.cancelReason = cancelReason;
+    }
 }
