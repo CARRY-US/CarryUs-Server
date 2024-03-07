@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.SMWU.CarryUsServer.domain.reservation.controller.response.MemberReservationDefaultInfoResponseDTO.getMemberReservationDefaultInfoResponseDTO;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -16,6 +18,6 @@ public class MemberService {
     }
 
     public MemberReservationDefaultInfoResponseDTO getMemberReservationDefaultInfo(final Member member) {
-        return getMemberReservationDefaultInfo(member);
+        return getMemberReservationDefaultInfoResponseDTO(member);
     }
 }
