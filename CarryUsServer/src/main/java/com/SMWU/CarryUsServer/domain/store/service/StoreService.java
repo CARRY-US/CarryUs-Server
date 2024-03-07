@@ -54,7 +54,7 @@ public class StoreService {
     public StoreDetailResponseDTO getStoreDetail(final long storeId) {
         final Store store = storeRepository.findById(storeId).orElseThrow();
         final List<BaggageTypeInfoResponseDTO> baggageTypeInfoList = getBaggageTypeInfoList(store);
-        return StoreDetailResponseDTO.getStoreDetailResponseDTO(store, baggageTypeInfoList);
+        return StoreDetailResponseDTO.of(store, baggageTypeInfoList);
     }
 
     private List<BaggageTypeInfoResponseDTO> getBaggageTypeInfoList(final Store store){
