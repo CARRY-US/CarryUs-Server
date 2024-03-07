@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.SMWU.CarryUsServer.domain.store.controller.response.BaggageTypeInfoResponseDTO.getBaggageTypeInfoResponseDTO;
 import static com.SMWU.CarryUsServer.domain.store.controller.response.StoreResponseDTO.toStoreResponseDTO;
 
 @Service
@@ -62,7 +61,7 @@ public class StoreService {
         List<BaggageTypeInfoResponseDTO> baggageTypeInfoList = new ArrayList<>();
         final List<StoreBaggage> storeBaggageList = storeBaggageRepository.findAllByStoreOrderByStoreBaggageIdAsc(store);
         for(StoreBaggage storeBaggage : storeBaggageList){
-            baggageTypeInfoList.add(getBaggageTypeInfoResponseDTO(storeBaggage));
+            baggageTypeInfoList.add(BaggageTypeInfoResponseDTO.of(storeBaggage));
         }
         return baggageTypeInfoList;
     }

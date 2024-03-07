@@ -6,11 +6,7 @@ public record BaggageTypeInfoResponseDTO(
         String baggageType,
         int baggageCount,
         int baggagePrice) {
-    public static BaggageTypeInfoResponseDTO of(String baggageType, int baggageCount, int baggagePrice) {
-        return new BaggageTypeInfoResponseDTO(baggageType, baggageCount, baggagePrice);
-    }
-
-    public static BaggageTypeInfoResponseDTO getBaggageTypeInfoResponseDTO(StoreBaggage storeBaggage){
-        return BaggageTypeInfoResponseDTO.of(storeBaggage.getBaggageType().getMessage(), storeBaggage.getBaggageCount(), storeBaggage.getBaggagePrice());
+    public static BaggageTypeInfoResponseDTO of(StoreBaggage storeBaggage){
+        return new BaggageTypeInfoResponseDTO(storeBaggage.getBaggageType().getMessage(), storeBaggage.getBaggageCount(), storeBaggage.getBaggagePrice());
     }
 }
