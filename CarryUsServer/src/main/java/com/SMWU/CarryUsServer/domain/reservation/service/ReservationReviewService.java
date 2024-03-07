@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.SMWU.CarryUsServer.domain.reservation.controller.response.StoreReviewResponseDTO.getStoreReviewResponseDTO;
 import static com.SMWU.CarryUsServer.domain.reservation.exception.ReservationExceptionType.NOT_COMPLETED_RESERVATION;
 import static com.SMWU.CarryUsServer.domain.reservation.exception.ReservationExceptionType.NOT_FOUND_RESERVATION;
 import static com.SMWU.CarryUsServer.domain.reservation.exception.ReviewExceptiontype.NOT_FOUND_REVIEW;
@@ -54,7 +53,7 @@ public class ReservationReviewService {
     private List<StoreReviewResponseDTO> toStoreReviewList(final List<ReservationReview> reservationReviewList) {
         List<StoreReviewResponseDTO> storeReviewListResponseDTO = new ArrayList<>();
         for (ReservationReview reservationReview : reservationReviewList) {
-            storeReviewListResponseDTO.add(getStoreReviewResponseDTO(reservationReview));
+            storeReviewListResponseDTO.add(StoreReviewResponseDTO.of(reservationReview));
         }
         return storeReviewListResponseDTO;
     }
