@@ -14,11 +14,7 @@ public record StoreDetailResponseDTO(
         String storePhoneNumber,
         List<BaggageTypeInfoResponseDTO> baggageTypeInfoList
 ) {
-    public static StoreDetailResponseDTO of(long storeId, String storeImgUrl, String storeName, String storeLocation, String closedDay, String openingHour, String storePhoneNumber, List<BaggageTypeInfoResponseDTO> baggageTypeInfoList) {
-        return new StoreDetailResponseDTO(storeId, storeImgUrl, storeName, storeLocation, closedDay, openingHour, storePhoneNumber, baggageTypeInfoList);
-    }
-
-    public static StoreDetailResponseDTO getStoreDetailResponseDTO(final Store store, List<BaggageTypeInfoResponseDTO> baggageTypeInfoList){
-        return StoreDetailResponseDTO.of(store.getStoreId(), store.getStoreImgUrl(), store.getStoreName(), store.getStoreLocation(), store.getClosedDay(), store.getOpeningHour(), store.getStorePhoneNumber(), baggageTypeInfoList);
+    public static StoreDetailResponseDTO of(final Store store, List<BaggageTypeInfoResponseDTO> baggageTypeInfoList){
+        return new StoreDetailResponseDTO(store.getStoreId(), store.getStoreImgUrl(), store.getStoreName(), store.getStoreLocation(), store.getClosedDay(), store.getOpeningHour(), store.getStorePhoneNumber(), baggageTypeInfoList);
     }
 }
