@@ -4,9 +4,7 @@ import com.SMWU.CarryUsServer.domain.member.entity.Member;
 import com.SMWU.CarryUsServer.domain.member.service.MemberService;
 import com.SMWU.CarryUsServer.domain.reservation.controller.request.ReservationCancelRequestDTO;
 import com.SMWU.CarryUsServer.domain.reservation.controller.request.ReviewCreateRequestDTO;
-import com.SMWU.CarryUsServer.domain.reservation.controller.response.MemberReservationDefaultInfoResponseDTO;
-import com.SMWU.CarryUsServer.domain.reservation.controller.response.ReservationIdResponseDTO;
-import com.SMWU.CarryUsServer.domain.reservation.controller.response.ReviewIdResponseDTO;
+import com.SMWU.CarryUsServer.domain.reservation.controller.response.*;
 import com.SMWU.CarryUsServer.domain.reservation.service.ReservationCancelService;
 import com.SMWU.CarryUsServer.domain.reservation.service.ReservationReviewService;
 import com.SMWU.CarryUsServer.global.response.SuccessResponse;
@@ -15,8 +13,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static com.SMWU.CarryUsServer.domain.reservation.exception.ReservationSuccessType.RESERVATION_CANCEL_SUCCESS;
 import static com.SMWU.CarryUsServer.domain.reservation.exception.ReservationSuccessType.RESERVATION_MEMBER_DEFAULT_INFO_GET_SUCCESS;
+import static com.SMWU.CarryUsServer.domain.reservation.exception.ReviewSuccessType.REVIEW_BY_STATUS_GET_SUCCESS;
 import static com.SMWU.CarryUsServer.domain.reservation.exception.ReviewSuccessType.REVIEW_CREATE_SUCCESS;
 
 @RestController
@@ -43,5 +44,11 @@ public class ReservationController {
     public ResponseEntity<SuccessResponse<ReservationIdResponseDTO>> cancelReservation(@RequestBody final ReservationCancelRequestDTO request) {
         final ReservationIdResponseDTO responseDTO = reservationCancelService.cancelReservation(request);
         return ResponseEntity.ok(SuccessResponse.of(RESERVATION_CANCEL_SUCCESS, responseDTO));
+    }
+
+    @GetMapping("")
+    public ResponseEntity<SuccessResponse<List<ReservationFilteredByStatusResponseDTO>>> getMemberReviewListByReviewStatus(@RequestParam final String status, @AuthMember final Member member){
+        final List<ReservationFilteredByStatusResponseDTO> responseDTO = reservationReviewService.getMemberReviewListByReviewStatus(status, member);
+        return ResponseEntity.ok(SuccessResponse.of(REVIEW_BY_STATUS_GET_SUCCESS, responseDTO));
     }
 }
