@@ -70,6 +70,20 @@ public class ReservationReviewService {
         return ReservationStoreInfoResponseDTO.of(reservation.getStore(), reservation.getReservationInfo());
     }
 
+    public List<ReservationFilteredByStatusResponseDTO> getMemberReviewListByReviewStatus(final String status, final Member member){
+        final ReservationType reservationType = ReservationType.valueOf(status);
+        final List<Reservation> reservationList = reservationRepository.findAllByReservationTypeAndClientOrderByCreatedAtDesc(reservationType, member);
+        return getReservationStoreInfoList(reservationList);
+    }
+
+    private List<ReservationFilteredByStatusResponseDTO> getReservationStoreInfoList(final List<Reservation> reservationList){
+        List<ReservationFilteredByStatusResponseDTO> responseDTO = new ArrayList<>();
+        for (Reservation reservation : reservationList) {
+            responseDTO.add(ReservationFilteredByStatusResponseDTO.of(reservation.getStore(), reservation));
+        }
+        return responseDTO;
+    }
+
     @Transactional
     public ReviewIdResponseDTO createReview(final Long reservationId, final ReviewCreateRequestDTO requestDTO, final Member member) {
         final Reservation reservation = reservationRepository.findByReservationIdAndClient(reservationId, member)
