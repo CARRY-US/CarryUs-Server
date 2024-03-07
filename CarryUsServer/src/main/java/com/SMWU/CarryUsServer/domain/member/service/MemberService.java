@@ -1,9 +1,8 @@
 package com.SMWU.CarryUsServer.domain.member.service;
 
 import com.SMWU.CarryUsServer.domain.member.controller.response.MemberProfileResponseDTO;
-import com.SMWU.CarryUsServer.domain.member.controller.response.MemberReservationDefaultInfoResponseDTO;
+import com.SMWU.CarryUsServer.domain.reservation.controller.response.MemberReservationDefaultInfoResponseDTO;
 import com.SMWU.CarryUsServer.domain.member.entity.Member;
-import com.SMWU.CarryUsServer.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

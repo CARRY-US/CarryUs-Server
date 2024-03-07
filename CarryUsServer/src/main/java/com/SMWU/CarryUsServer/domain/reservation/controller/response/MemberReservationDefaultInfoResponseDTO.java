@@ -1,4 +1,4 @@
-package com.SMWU.CarryUsServer.domain.member.controller.response;
+package com.SMWU.CarryUsServer.domain.reservation.controller.response;
 
 import com.SMWU.CarryUsServer.domain.member.entity.Member;
 
