@@ -24,4 +24,8 @@ public class ReservationBaggage {
     private StoreBaggage storeBaggage;
 
     private int reservationBaggageCount;
+
+    public String getReservationBaggageInfo(){
+        return storeBaggage.getBaggageType().getMessage()+" "+reservationBaggageCount;
+    }
 }
