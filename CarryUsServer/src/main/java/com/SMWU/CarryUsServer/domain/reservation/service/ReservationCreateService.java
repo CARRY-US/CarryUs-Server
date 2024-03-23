@@ -64,7 +64,6 @@ public class ReservationCreateService {
         int payment = 0;
         int count = 0;
         StoreBaggage storeBaggage = null;
-        System.out.println(reservationStartTime);
 
         for (BaggageType baggageType : BaggageType.values()) {
             for (LocalDateTime time = reservationStartTime; time.isBefore(reservationEndTime); time = time.plusHours(1)) {
