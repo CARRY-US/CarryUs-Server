@@ -8,6 +8,8 @@ import com.SMWU.CarryUsServer.domain.reservation.exception.ReservationException;
 import com.SMWU.CarryUsServer.domain.reservation.repository.ReservationBaggageRepository;
 import com.SMWU.CarryUsServer.domain.reservation.repository.ReservationRepository;
 import com.SMWU.CarryUsServer.domain.store.entity.Store;
+import com.SMWU.CarryUsServer.domain.store.repository.StoreBaggageRepository;
+import com.SMWU.CarryUsServer.domain.store.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,7 +41,7 @@ public class ReservationService {
             reservationBaggageInfo.append(rb.getReservationBaggageInfo()).append(", ");
         }
         if (!reservationBaggageInfo.isEmpty()) {
-            reservationBaggageInfo.setLength(reservationBaggageInfo.length() - 2); // 마지막 쉼표와 공백 제거
+            reservationBaggageInfo.setLength(reservationBaggageInfo.length() - 2);
         }
         return reservationBaggageInfo.toString();
     }
