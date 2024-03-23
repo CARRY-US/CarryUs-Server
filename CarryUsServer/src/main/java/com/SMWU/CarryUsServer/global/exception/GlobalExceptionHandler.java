@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import static com.SMWU.CarryUsServer.global.exception.CommonExceptionType.*;
 
@@ -34,10 +35,10 @@ public class GlobalExceptionHandler {
                 .body(ErrorResponse.of(INTERNAL_SERVER_ERROR));
     }
 
-    @ExceptionHandler(NoHandlerFoundException.class)
-    protected ResponseEntity<ErrorResponse> handleNotFoundException(final NoHandlerFoundException ex) {
+    @ExceptionHandler(NoResourceFoundException.class)
+    protected ResponseEntity<ErrorResponse> handleNotFoundException(final NoResourceFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(ErrorResponse.of(NOT_FOUND_PATH, ex.getRequestURL()));
+                .body(ErrorResponse.of(NOT_FOUND_PATH, ex.getResourcePath()));
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
