@@ -3,6 +3,7 @@ package com.SMWU.CarryUsServer.domain.reservation.entity;
 import com.SMWU.CarryUsServer.domain.store.entity.StoreBaggage;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,5 +28,12 @@ public class ReservationBaggage {
 
     public String getReservationBaggageInfo(){
         return storeBaggage.getBaggageType().getMessage()+" "+reservationBaggageCount+"개";
+    }
+
+    @Builder
+    public ReservationBaggage(Reservation reservation, StoreBaggage storeBaggage, int reservationBaggageCount) {
+        this.reservation = reservation;
+        this.storeBaggage = storeBaggage;
+        this.reservationBaggageCount = reservationBaggageCount;
     }
 }
