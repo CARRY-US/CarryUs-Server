@@ -6,6 +6,7 @@ import com.SMWU.CarryUsServer.domain.store.entity.Store;
 import com.SMWU.CarryUsServer.global.entity.AuditingTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -49,5 +50,21 @@ public class Reservation extends AuditingTimeEntity {
 
     public void cancelReservation(){
         this.reservationType = ReservationType.CANCELED;
+    }
+
+    public void updatePayment(int payment){
+        this.payment = payment;
+    }
+
+    @Builder
+    public Reservation(Member client, Store store, String clientReservationPhoneNumber, ReservationType reservationType, String clientRequestContent, int payment, LocalDateTime reservationStartTime, LocalDateTime reservationEndTime) {
+        this.client = client;
+        this.store = store;
+        this.clientReservationPhoneNumber = clientReservationPhoneNumber;
+        this.reservationType = reservationType;
+        this.clientRequestContent = clientRequestContent;
+        this.payment = payment;
+        this.reservationStartTime = reservationStartTime;
+        this.reservationEndTime = reservationEndTime;
     }
 }
