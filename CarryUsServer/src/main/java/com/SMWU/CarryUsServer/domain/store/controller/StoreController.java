@@ -6,20 +6,20 @@ import com.SMWU.CarryUsServer.domain.reservation.controller.response.Reservation
 import com.SMWU.CarryUsServer.domain.reservation.controller.response.StoreReviewResponseListDTO;
 import com.SMWU.CarryUsServer.domain.reservation.service.ReservationCreateService;
 import com.SMWU.CarryUsServer.domain.reservation.service.ReservationReviewService;
+import com.SMWU.CarryUsServer.domain.reservation.service.ReservationService;
+import com.SMWU.CarryUsServer.domain.store.controller.response.ReservationAvailableTimeResponseDTO;
 import com.SMWU.CarryUsServer.domain.store.controller.response.StoreDetailResponseDTO;
 import com.SMWU.CarryUsServer.domain.store.service.StoreService;
 import com.SMWU.CarryUsServer.global.response.SuccessResponse;
 import com.SMWU.CarryUsServer.global.security.AuthMember;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
 import static com.SMWU.CarryUsServer.domain.reservation.exception.ReservationSuccessType.RESERVATION_CREATE_SUCCESS;
-import static com.SMWU.CarryUsServer.domain.store.exception.StoreSuccessType.GET_STORE_DETAIL;
-import static com.SMWU.CarryUsServer.domain.store.exception.StoreSuccessType.GET_STORE_REVIEW_LIST;
+import static com.SMWU.CarryUsServer.domain.store.exception.StoreSuccessType.*;
 
 @RestController
 @RequestMapping("/stores")
@@ -28,6 +28,7 @@ public class StoreController {
     private final ReservationReviewService reservationReviewService;
     private final StoreService storeService;
     private final ReservationCreateService reservationCreateService;
+    private final ReservationService reservationService;
 
     @GetMapping("/{storeId}/reviews")
     public ResponseEntity<SuccessResponse<StoreReviewResponseListDTO>> getStoreReviewList(@PathVariable final long storeId) {
@@ -46,5 +47,13 @@ public class StoreController {
         final ReservationIdResponseDTO response = reservationCreateService.createReservation(request, storeId, member);
         URI resourceUri = URI.create("/reservation/"+response.reservationId());
         return ResponseEntity.created(resourceUri).body(SuccessResponse.of(RESERVATION_CREATE_SUCCESS, response));
+    }
+
+    @GetMapping("/{storeId}/reservation/time/info")
+    public ResponseEntity<SuccessResponse<ReservationAvailableTimeResponseDTO>> getReservationAvailableTime(
+            @PathVariable final long storeId, @RequestParam final String date, @RequestParam final int extraSmallCount,
+            @RequestParam final int smallCount, @RequestParam final int largeCount, @RequestParam final int extraLargeCount){
+        final ReservationAvailableTimeResponseDTO response = reservationService.getReservationAvailableTime(storeId, date, extraSmallCount, smallCount, largeCount, extraLargeCount);
+        return ResponseEntity.ok().body(SuccessResponse.of(GET_STORE_RESERVATION_AVAILABLE_TIME, response));
     }
 }
