@@ -16,12 +16,4 @@ public record ReservationCreateRequestDTO(
         String memberPhoneNumber,
         String memberRequestContent
 ) {
-    public static ConcurrentHashMap<BaggageType, Integer> createBaggageCountMap(final ReservationCreateRequestDTO request){
-        ConcurrentHashMap<BaggageType, Integer> baggageCount = new ConcurrentHashMap<>();
-        baggageCount.put(BaggageType.EXTRASMALL, request.extraSmallCount());
-        baggageCount.put(BaggageType.SMALL, request.smallCount());
-        baggageCount.put(BaggageType.LARGE, request.largeCount());
-        baggageCount.put(BaggageType.EXTRALARGE, request.extraLargeCount());
-        return baggageCount;
-    }
 }
