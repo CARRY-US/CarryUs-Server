@@ -83,10 +83,11 @@ public class ReservationService {
     private List<Boolean> getAvailableTime(final ConcurrentHashMap<BaggageType, Integer> baggageCount, final Store store, final LocalDateTime reservationDate) {
         List<Boolean> availableTimeList = new ArrayList<>();
         LocalDateTime startTime = getStartTime(store, reservationDate);
+        LocalDateTime endTime = getEndTime(store, reservationDate);
 
         for (int i = 0; i < 24; i++) {
             LocalDateTime currentTime = reservationDate.plusHours(i);
-            if (currentTime.isBefore(startTime)) {
+            if (currentTime.isBefore(startTime) || currentTime.isAfter(endTime)) {
                 availableTimeList.add(false);
                 continue;
             }
@@ -121,5 +122,18 @@ public class ReservationService {
             startTime = LocalTime.parse(timeString);
         }
         return LocalDateTime.of(reservationDate.toLocalDate(), Objects.requireNonNull(startTime));
+    }
+
+    private LocalDateTime getEndTime(final Store store, final LocalDateTime reservationDate){
+        Pattern pattern = Pattern.compile("\\d{2}:\\d{2}(?!.*\\d{2}:\\d{2})");
+        Matcher matcher = pattern.matcher(store.getOpeningHour());
+        LocalTime endTime = null;
+        if (matcher.find()) {
+            String timeString = matcher.group();
+            endTime = LocalTime.parse(timeString);
+        }
+
+        System.out.println("endTime: " + endTime);
+        return LocalDateTime.of(reservationDate.toLocalDate(), Objects.requireNonNull(endTime));
     }
 }
