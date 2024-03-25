@@ -41,7 +41,7 @@ public class ReservationCreateService {
     @Transactional
     public ReservationIdResponseDTO createReservation(final ReservationCreateRequestDTO request, final Long storeId, final Member member) {
         Store store = storeRepository.findById(storeId).orElseThrow(() -> new StoreException(NOT_FOUND_STORE_BAGGAGE));
-        ConcurrentHashMap<BaggageType, Integer> baggageCountMap = ReservationCreateRequestDTO.createBaggageCountMap(request);
+        ConcurrentHashMap<BaggageType, Integer> baggageCountMap = BaggageType.createBaggageCountMap(request.extraSmallCount(), request.smallCount(), request.largeCount(), request.extraLargeCount());
         Reservation reservation = createReservationEntity(request, store, member);
         reservationRepository.save(reservation);
         validateAndCreateReservationBaggage(baggageCountMap, store, request.reservationStartTime(), request.reservationEndTime(), reservation);
