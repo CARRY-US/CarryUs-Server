@@ -70,7 +70,7 @@ public class ReservationReviewService {
         return ReservationStoreInfoResponseDTO.of(reservation.getStore(), reservation.getReservationInfo());
     }
 
-    public List<ReservationFilteredByStatusResponseDTO> getMemberReviewListByReviewStatus(final String status, final Member member){
+    public List<ReservationFilteredByStatusResponseDTO> getMemberReservationByReservationStatus(final String status, final Member member){
         final ReservationType reservationType = ReservationType.valueOf(status);
         final List<Reservation> reservationList = reservationRepository.findAllByReservationTypeAndClientOrderByCreatedAtDesc(reservationType, member);
         return getReservationStoreInfoList(reservationList);
@@ -78,8 +78,12 @@ public class ReservationReviewService {
 
     private List<ReservationFilteredByStatusResponseDTO> getReservationStoreInfoList(final List<Reservation> reservationList){
         List<ReservationFilteredByStatusResponseDTO> responseDTO = new ArrayList<>();
+        boolean isReviewExist = false;
         for (Reservation reservation : reservationList) {
-            responseDTO.add(ReservationFilteredByStatusResponseDTO.of(reservation.getStore(), reservation));
+            boolean reservationTypeISCompleted = reservation.getReservationType().equals(ReservationType.COMPLETED);
+            boolean reservationHasReview = reservationReviewRepository.existsByReservation(reservation);
+            isReviewExist = reservationTypeISCompleted && reservationHasReview;
+            responseDTO.add(ReservationFilteredByStatusResponseDTO.of(reservation.getStore(), reservation, isReviewExist));
         }
         return responseDTO;
     }
