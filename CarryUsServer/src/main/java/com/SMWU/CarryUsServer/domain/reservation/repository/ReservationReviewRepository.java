@@ -16,7 +16,7 @@ public interface ReservationReviewRepository extends JpaRepository<ReservationRe
 
     Optional<ReservationReview> findByReservationReviewIdAndReservationClient(Long reservationId, Member client);
 
-    @Query("SELECT AVG(rr.reviewRating) FROM ReservationReview rr JOIN rr.reservation r WHERE r.store.storeId = :storeId")
+    @Query("SELECT ROUND(AVG(rr.reviewRating),1) FROM ReservationReview rr JOIN rr.reservation r WHERE r.store.storeId = :storeId")
     Optional<Double> getStoreRating(@Param("storeId") Long storeId);
 
     @Query("SELECT COUNT(rr) FROM ReservationReview rr JOIN rr.reservation r WHERE r.store.storeId = :storeId")
