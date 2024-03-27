@@ -54,8 +54,8 @@ public class ReservationController {
     }
 
     @GetMapping("")
-    public ResponseEntity<SuccessResponse<List<ReservationFilteredByStatusResponseDTO>>> getMemberReviewListByReviewStatus(@RequestParam final String status, @AuthMember final Member member){
-        final List<ReservationFilteredByStatusResponseDTO> responseDTO = reservationReviewService.getMemberReviewListByReviewStatus(status, member);
+    public ResponseEntity<SuccessResponse<List<ReservationFilteredByStatusResponseDTO>>> getMemberReservationByReservationStatus(@RequestParam final String status, @AuthMember final Member member){
+        final List<ReservationFilteredByStatusResponseDTO> responseDTO = reservationReviewService.getMemberReservationByReservationStatus(status, member);
         return ResponseEntity.ok(SuccessResponse.of(REVIEW_BY_STATUS_GET_SUCCESS, responseDTO));
     }
 }
